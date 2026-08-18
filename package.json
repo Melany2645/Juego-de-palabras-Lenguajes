@@ -1,0 +1,27 @@
+{
+  "name": "juego-de-palabras-lenguajes",
+  "version": "1.0.0",
+  "description": "Tarea I Lenguajes - Creación de juego de palabras",
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "homepage": "https://github.com/Melany2645/Juego-de-palabras-Lenguajes#readme",
+  "bugs": {
+    "url": "https://github.com/Melany2645/Juego-de-palabras-Lenguajes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Melany2645/Juego-de-palabras-Lenguajes.git"
+  },
+  "license": "ISC",
+  "author": "Melany Jirón Díaz",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
