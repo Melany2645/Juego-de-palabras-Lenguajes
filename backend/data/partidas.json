@@ -1,0 +1,22 @@
+[
+  {
+    "id": "7cdddf75-8ad2-4f5a-a46f-4484f7db636d",
+    "jugador1": "Ana",
+    "jugador2": "Luis",
+    "fecha": "2026-08-19T23:12:18.381Z",
+    "estado": "en curso",
+    "rondaActual": 1,
+    "rondas": [
+      {
+        "numero": 1,
+        "jugadorAdivina": "Ana",
+        "palabraSecreta": "Nicoya",
+        "intentos": [],
+        "finalizado": false,
+        "inicioTimepo": 1787181138382,
+        "tiempoSegundos": null
+      }
+    ],
+    "resumen": null
+  }
+]

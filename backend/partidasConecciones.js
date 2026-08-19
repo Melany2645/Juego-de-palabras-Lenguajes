@@ -34,6 +34,7 @@ function crearRonda(numero, jugadorAdivina) {
 // Función para la cración de la partida
 function crearPartida(req, res) {
   const { nombreJugador1, nombreJugador2 } = req.body;
+
   if (!nombreJugador1 || !nombreJugador2) {
     return res.status(400).json({ error: "Nombres de jugadores inválidos" });
   }
