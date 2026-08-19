@@ -34,7 +34,7 @@ function buscarPartidaPorId(id) {
 }
 
 // Agregar una nueva partida al archivo JSON
-function agregarPartida(partida) {
+function crearPartida(partida) {
   const partidas = leerArchivo();
   partidas.push(partida);
   guardarArchivo(partidas);
@@ -59,6 +59,6 @@ module.exports = {
   leerArchivo,
   guardarArchivo,
   buscarPartidaPorId,
-  agregarPartida,
+  crearPartida,
   actualizarPartida,
 };
