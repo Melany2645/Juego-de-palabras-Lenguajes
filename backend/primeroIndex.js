@@ -6,6 +6,10 @@ import partidasConneciones from "./partidasConecciones.js";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.get("/", (req, res) => {
+  res.send("Espero que esto funcione, amén!!");
+});
+
 app.use(cors());
 app.use(express.json());
 
