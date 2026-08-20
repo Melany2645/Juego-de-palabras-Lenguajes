@@ -16,9 +16,9 @@
   },
   "license": "ISC",
   "author": "Melany Jirón Díaz",
-  "main": "./backend/index.js",
+  "main": "./backend/primeroIndex.js",
   "scripts": {
-    "dev": "nodemon ./backend/index.js"
+    "dev": "nodemon ./backend/primeroIndex.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
