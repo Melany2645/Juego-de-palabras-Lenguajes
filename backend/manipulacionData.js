@@ -1,12 +1,25 @@
 const fs = require("fs");
 const path = require("path");
 
-const ArchivoPartidas = path.join(__dirname, "data", "partidas.json");
+const CarpetaDatos = process.env.DATA_DIR || path.join(__dirname, "data");
+const RutaArchivoPartidas = path.join(CarpetaDatos, "partidas.json");
+
+// Se crea el archivo si por si acaso no existe
+function asegurarExistenciaArchivo() {
+  const carpeta = path.dirname(RutaArchivoPartidas);
+  if (!fs.existsSync(carpeta)) {
+    fs.mkdirSync(carpeta, { recursive: true });
+  }
+  if (!fs.existsSync(RutaArchivoPartidas)) {
+    fs.writeFileSync(RutaArchivoPartidas, "[]", "utf-8");
+  }
+}
 
 // Así podremos leer el archivo JSON y devolver su contenido como un objeto
 function leerArchivo() {
+  asegurarExistenciaArchivo();
   try {
-    const data = fs.readFileSync(ArchivoPartidas, "utf8");
+    const data = fs.readFileSync(RutaArchivoPartidas, "utf8");
     return JSON.parse(data);
   } catch (error) {
     console.error("Error al leer el archivo:", error);
@@ -16,9 +29,10 @@ function leerArchivo() {
 
 // Guardamos los datos en el archivo JSON
 function guardarArchivo(partidas) {
+  asegurarExistenciaArchivo();
   try {
     fs.writeFileSync(
-      ArchivoPartidas,
+      RutaArchivoPartidas,
       JSON.stringify(partidas, null, 2),
       "utf8",
     );
