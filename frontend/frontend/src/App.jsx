@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import Juego from "./pages/Juego";
 import Historial from "./pages/Historial";
-import "./indez.css";
+import "./index.css";
 
 export default function App() {
   return (
