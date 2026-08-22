@@ -1,13 +1,209 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --color-fondo: #112c76;
+  --color-panel: #020d2b;
+  --color-panel-dorbe: #2e3c60;
+  --color-texto: #e7e9ee;
+  --color-texto-tenue: #9a9fb0;
+  --color-verde: #0f785f;
+  --color-amatista: #6342c8;
+  --color-lavanda: #b9a7fc;
+
+  --fuente-display: "Space Grotesk", system-ui, sans-serif;
+  --fuente-texto: "Inter", system-ui, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-display);
+  margin: 0;
+}
+
+.contenedor {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.encabezado {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-panel-dorbe);
+  padding-bottom: 1rem;
+}
+
+.encabezado h1 {
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+.enlace-historial {
+  color: var(--color-lavanda);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.enlace-historial:hover {
+  text-decoration: underline;
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-panel-dorbe);
+  border-radius: 11px;
+  padding: 1.75rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  color: var(--color-texto-tenue);
+}
+
+.campo input {
+  background: var(--color-fondo);
+  border: 1px solid var(--color-panel-dorbe);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+}
+
+.campo input:focus-visible {
+  outline: 2px solid var(--color-verde);
+  outline-offset: 1px;
+}
+
+.boton {
+  background: var(--color-verde);
+  color: #14171f;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--fuente-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.boton:hover {
+  filter: brightness(1.08);
+}
+
+.boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.boton-secundario {
+  background: transparent;
+  color: var(--color-lavanda);
+  border: 1px solid var(--color-lavanda);
+}
+
+.error {
+  color: var(--color-amatista);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.fila-fichas {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.ficha {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-family: var(--fuente-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-panel-borde);
+  color: var(--color-texto-tenue);
+}
+
+.ficha.correcta {
+  background: var(--color-dorado);
+  border-color: var(--color-dorado);
+  color: #14171f;
+}
+
+.intento-pista {
+  font-size: 0.85rem;
+  color: var(--color-texto-tenue);
+  margin-bottom: 1.2rem;
+}
+
+.marcador {
+  display: flex;
+  justify-content: space-between;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-panel-borde);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--fuente-display);
+}
+
+.marcador .jugador {
+  font-size: 0.95rem;
+}
+
+.marcador .rol {
+  display: block;
+  font-family: var(--fuente-texto);
+  font-size: 0.75rem;
+  color: var(--color-texto-tenue);
+  font-weight: 400;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--color-panel-borde);
+}
+
+th {
+  color: var(--color-texto-tenue);
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
