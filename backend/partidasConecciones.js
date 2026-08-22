@@ -84,13 +84,14 @@ function registrarIntento(req, res) {
     });
   }
   const pista = resultado.esCorrecto
-    ? "¡Correcto!"
+    ? { mensaje: "¡Correcto! Adivinaste la palabra!", posicion: null }
     : juego.darPistas(resultado.posicionesCorrectas);
 
   ronda.intentos.push({
     palabra: intento.toLowerCase(),
-    pista,
-    tiempo: Date.now() - ronda.inicioTimepo,
+    pista: pista.mensaje,
+    posicionCorrecta: pista.posicion,
+    tiempo: Date.now(),
   });
 
   let partidaFinalizada = false;
@@ -115,6 +116,7 @@ function registrarIntento(req, res) {
   res.json({
     esCorrecto: resultado.esCorrecto,
     pista,
+    rondaFinalizada: ronda.finalizada,
     partida: partidaParaJugador(partida),
     partidaFinalizada,
   });

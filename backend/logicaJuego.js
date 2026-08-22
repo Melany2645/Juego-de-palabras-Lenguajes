@@ -77,7 +77,10 @@ function darPistas(posicionesCorrectas) {
   }
   const indice = Math.floor(Math.random() * posicionesCorrectas.length); // Si hay varias solo elegimos unas
   const posicionCorrecta = posicionesCorrectas[indice];
-  return `La letra en la posición ${posicionCorrecta} es correcta`;
+  return {
+    mensaje: `La letra en la posición ${posicionCorrecta} es correcta`,
+    posicionCorrecta,
+  };
 }
 
 // Info de la partida al finalizar
