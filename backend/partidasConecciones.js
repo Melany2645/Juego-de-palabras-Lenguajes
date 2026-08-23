@@ -51,7 +51,7 @@ function crearPartida(req, res) {
     jugador1,
     jugador2,
     fecha: new Date().toISOString(),
-    estado: "en curso",
+    estado: "en_curso",
     rondaActual: 1,
     rondas: [crearRonda(1, jugador1)],
     resumen: null,
