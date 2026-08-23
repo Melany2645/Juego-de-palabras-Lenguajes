@@ -1,7 +1,6 @@
 const { randomUUID } = require("crypto");
 const manipatacion = require("./manipulacionData");
 const juego = require("./logicaJuego");
-const { error } = require("console");
 
 const total_Rondas = 6;
 
@@ -9,7 +8,7 @@ const total_Rondas = 6;
 function partidaParaJugador(partida) {
   const copia = JSON.parse(JSON.stringify(partida));
 
-  copia.ronda = copia.ronda.map((ronda) => {
+  copia.rondas = copia.rondas.map((ronda) => {
     if (!ronda.finalizada) {
       const { palabraSecreta, ...rondaSinPalabra } = ronda;
       return {
@@ -54,7 +53,7 @@ function crearPartida(req, res) {
     fecha: new Date().toISOString(),
     estado: "en curso",
     rondaActual: 1,
-    ronda: [crearRonda(1, jugador1)],
+    rondas: [crearRonda(1, jugador1)],
     resumen: null,
   };
   manipatacion.crearPartida(partida);
@@ -73,7 +72,7 @@ function ingresarPalabra(req, res) {
     return res.status(400).json({ error: "La partida ya finalizó" });
   }
 
-  const ronda = partida.ronda[partida.ronda.length - 1];
+  const ronda = partida.rondas[partida.rondas.length - 1];
   if (ronda.palabraSecreta) {
     return res
       .status(400)
@@ -105,7 +104,7 @@ function registrarIntento(req, res) {
     return res.status(400).json({ error: "Partida finalizada" });
   }
 
-  const ronda = partida.ronda[partida.ronda.length - 1];
+  const ronda = partida.rondas[partida.rondas.length - 1];
   if (!ronda.palabraSecreta) {
     return res
       .status(400)
