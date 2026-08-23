@@ -104,7 +104,7 @@ export default function Juego() {
     );
   }
 
-  const rondaActual = partida.rondas[partida.rondas.length - 1];
+  const rondaActual = partida.ronda[partida.ronda.length - 1];
   const jugadorAdivina = rondaActual.jugadorAdivina;
   const jugadorIngresaPalabra =
     jugadorAdivina === partida.jugador1 ? partida.jugador2 : partida.jugador1;

@@ -1,7 +1,10 @@
-import express from "express";
-import cors from "cors";
+//import express from "express";
+const express = require("express");
+//import cors from "cors";
+const cors = require("cors");
 
-import partidasConneciones from "./partidasConecciones.js";
+//import partidasConneciones from "./partidasConecciones.js";
+const partidasConneciones = require("./partidasConecciones.js");
 
 const app = express();
 const PORT = process.env.PORT || 3001;

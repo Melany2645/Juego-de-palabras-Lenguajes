@@ -9,7 +9,7 @@ const total_Rondas = 6;
 function partidaParaJugador(partida) {
   const copia = JSON.parse(JSON.stringify(partida));
 
-  copia.ronda = copia.rondas.map((ronda) => {
+  copia.ronda = copia.ronda.map((ronda) => {
     if (!ronda.finalizada) {
       const { palabraSecreta, ...rondaSinPalabra } = ronda;
       return {
@@ -54,7 +54,7 @@ function crearPartida(req, res) {
     fecha: new Date().toISOString(),
     estado: "en curso",
     rondaActual: 1,
-    rondas: [crearRonda(1, jugador1)],
+    ronda: [crearRonda(1, jugador1)],
     resumen: null,
   };
   manipatacion.crearPartida(partida);
@@ -73,7 +73,7 @@ function ingresarPalabra(req, res) {
     return res.status(400).json({ error: "La partida ya finalizó" });
   }
 
-  const ronda = partida.rondas[partida.rondas.length - 1];
+  const ronda = partida.ronda[partida.ronda.length - 1];
   if (ronda.palabraSecreta) {
     return res
       .status(400)
@@ -105,7 +105,7 @@ function registrarIntento(req, res) {
     return res.status(400).json({ error: "Partida finalizada" });
   }
 
-  const ronda = partida.rondas[partida.rondas.length - 1];
+  const ronda = partida.ronda[partida.ronda.length - 1];
   if (!ronda.palabraSecreta) {
     return res
       .status(400)
@@ -138,12 +138,12 @@ function registrarIntento(req, res) {
   let partidaFinalizada = false;
 
   if (resultado.esCorrecto) {
-    ronda.finalizado = true;
+    ronda.finalizada = true;
     ronda.tiempoSegundos = Math.round((Date.now() - ronda.inicioTimepo) / 1000);
 
     if (partida.rondaActual >= total_Rondas) {
       partida.resumen = juego.infoPartida(
-        partida.rondas,
+        partida.ronda,
         partida.jugador1,
         partida.jugador2,
       );
@@ -175,7 +175,7 @@ function cambiarRonda(req, res) {
     return res.status(400).json({ error: "Partida finalizada" });
   }
 
-  const rondaAnterior = partida.rondas[partida.rondaActual - 1];
+  const rondaAnterior = partida.ronda[partida.rondaActual - 1];
 
   if (!rondaAnterior.finalizada) {
     return res.status(400).json({ error: "La ronda actual no ha finalizado" });
@@ -190,7 +190,7 @@ function cambiarRonda(req, res) {
       : partida.jugador1;
 
   partida.rondaActual += 1;
-  partida.rondas.push(crearRonda(partida.rondaActual, siguienteJugadorAdivina));
+  partida.ronda.push(crearRonda(partida.rondaActual, siguienteJugadorAdivina));
 
   manipatacion.actualizarPartida(id, partida);
 
