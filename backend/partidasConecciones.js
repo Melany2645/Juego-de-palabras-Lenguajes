@@ -142,7 +142,7 @@ function registrarIntento(req, res) {
 
     if (partida.rondaActual >= total_Rondas) {
       partida.resumen = juego.infoPartida(
-        partida.ronda,
+        partida.rondas,
         partida.jugador1,
         partida.jugador2,
       );
@@ -174,7 +174,7 @@ function cambiarRonda(req, res) {
     return res.status(400).json({ error: "Partida finalizada" });
   }
 
-  const rondaAnterior = partida.ronda[partida.rondaActual - 1];
+  const rondaAnterior = partida.rondas[partida.rondaActual - 1];
 
   if (!rondaAnterior.finalizada) {
     return res.status(400).json({ error: "La ronda actual no ha finalizado" });
@@ -189,7 +189,7 @@ function cambiarRonda(req, res) {
       : partida.jugador1;
 
   partida.rondaActual += 1;
-  partida.ronda.push(crearRonda(partida.rondaActual, siguienteJugadorAdivina));
+  partida.rondas.push(crearRonda(partida.rondaActual, siguienteJugadorAdivina));
 
   manipatacion.actualizarPartida(id, partida);
 
