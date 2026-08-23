@@ -1,6 +1,6 @@
 // Aquí es donde se conecta a la API del backend
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http:localhost_3001/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 async function manejarRespuestas(respuestas) {
   const datos = await respuestas.json();

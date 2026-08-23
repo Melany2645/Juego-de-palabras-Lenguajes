@@ -30,7 +30,7 @@ function crearRonda(numero, jugadorAdivina) {
     jugadorAdivina,
     palabraSecreta: null,
     intentos: [],
-    finalizado: false,
+    finalizada: false,
     inicioTimepo: null,
     tiempoSegundos: null,
   };
@@ -87,6 +87,9 @@ function ingresarPalabra(req, res) {
 
   ronda.palabraSecreta = palabra.trim().toLowerCase();
   ronda.inicioTimepo = Date.now();
+
+  manipatacion.actualizarPartida(id, partida);
+  res.json(partidaParaJugador(partida));
 }
 
 // Función para poder registrar el intento de un jugador en la partida
