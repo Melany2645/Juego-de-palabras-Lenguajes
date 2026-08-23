@@ -17,7 +17,7 @@ function partidaParaJugador(partida) {
         longitud: palabraSecreta ? palabraSecreta.length : null,
       };
     }
-    return ronda;
+    return { ...ronda, palabraIngresada: true };
   });
   return copia;
 }
