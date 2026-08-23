@@ -57,6 +57,13 @@ export default function Historial() {
                       : "En curso"}
                   </td>
                   <td>
+                    {partida.resumen
+                      ? `${partida.resumen.tiempoTotal[partida.jugador1]} / ${
+                          partida.resumen.tiempoTotal[partida.jugador2]
+                        }`
+                      : "En curso"}
+                  </td>
+                  <td>
                     {partida.estado === "finalizada"
                       ? partida.resumen.resultado === "gane"
                         ? `Ganó ${partida.resumen.ganador}`

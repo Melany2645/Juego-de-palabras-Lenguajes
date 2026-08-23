@@ -122,18 +122,18 @@ function infoPartida(rondas, jugador1, jugador2) {
   if (intentosTotales[jugador1] !== intentosTotales[jugador2]) {
     if (intentosTotales[jugador1] < intentosTotales[jugador2]) {
       ganador = jugador1;
-      resultado = "ganador";
+      resultado = "gane";
     } else {
       ganador = jugador2;
-      resultado = "ganador";
+      resultado = "gane";
     }
   } else if (tiempoTotal[jugador2] !== tiempoTotal[jugador1]) {
     if (tiempoTotal[jugador1] < tiempoTotal[jugador2]) {
       ganador = jugador1;
-      resultado = "ganador";
+      resultado = "gane";
     } else {
       ganador = jugador2;
-      resultado = "ganador";
+      resultado = "gane";
     }
   }
   return { ganador, resultado, intentosTotales, tiempoTotal };
