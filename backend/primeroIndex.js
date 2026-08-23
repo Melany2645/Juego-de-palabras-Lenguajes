@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.send("Espero que esto funcione, amén!!");
 });
 
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 
 // Definimos rutas
@@ -18,8 +18,9 @@ app.use(express.json());
 const router = express.Router();
 
 router.post("/partidas", partidasConneciones.crearPartida);
-router.post("/partidas", partidasConneciones.obtenerHistorial);
-router.post("/partidas/:id", partidasConneciones.obtenerDetalles);
+router.get("/partidas", partidasConneciones.obtenerHistorial);
+router.get("/partidas/:id", partidasConneciones.obtenerDetalles);
+router.post("/partidas/:id/palabra", partidasConneciones.ingresarPalabra);
 router.post("/partidas/:id/intento", partidasConneciones.registrarIntento);
 router.post("/partidas/:id/siguiente-ronda", partidasConneciones.cambiarRonda);
 

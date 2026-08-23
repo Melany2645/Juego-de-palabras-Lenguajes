@@ -40,6 +40,22 @@ function elegirPalabraAleatoria() {
   return LISTA_PALABRAS[indiceAleatorio];
 }
 
+function validarPalabra(palabra) {
+  const limpia = (palabra || "").trim().toLowerCase();
+
+  if (limpia.length < 4 || limpia.length > 8) {
+    return {
+      valida: false,
+      error: "La palabra debe de tener entre 4 y 8 caracteres.",
+    };
+  }
+
+  if (!/^[a-záéíóúñ]+$/.test(limpia)) {
+    return { valida: false, error: "La palabra solo puede contener letras." };
+  }
+  return { valida: true, error: null };
+}
+
 // Función para elegir la posición de los jugadores
 function elegirJugador(nombreA, nombreB) {
   const primero = Math.random() < 0.5;
@@ -56,8 +72,9 @@ function compararIntento(palabraSecreta, intento) {
 
   if (propuesta.length !== secreta.length) {
     return {
-      error:
-        "La palabra propuesta no tiene la misma longitud que la palabra secreta",
+      longitudValida: false,
+      esCorrecto: false,
+      posicionesCorrectas: [],
     };
   }
 
@@ -67,13 +84,17 @@ function compararIntento(palabraSecreta, intento) {
       posicionesCorrectas.push(i + 1);
     }
   }
-  return { posicionesCorrectas };
+  return {
+    longitudValida: true,
+    esCorrecto: propuesta === secreta,
+    posicionesCorrectas,
+  };
 }
 
 // Función para dar pistas sobre la palabra secreta, indicando si las letras propuestas están en la palabra secreta o no
 function darPistas(posicionesCorrectas) {
   if (posicionesCorrectas.length === 0) {
-    return "Ninguna letra es correcta";
+    return { mensaje: "Ninguna letra es correcta", posicion: null };
   }
   const indice = Math.floor(Math.random() * posicionesCorrectas.length); // Si hay varias solo elegimos unas
   const posicionCorrecta = posicionesCorrectas[indice];
@@ -120,6 +141,7 @@ function infoPartida(rondas, jugador1, jugador2) {
 
 module.exports = {
   elegirPalabraAleatoria,
+  validarPalabra,
   elegirJugador,
   compararIntento,
   darPistas,

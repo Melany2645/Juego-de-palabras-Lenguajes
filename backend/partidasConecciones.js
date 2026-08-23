@@ -1,6 +1,7 @@
 const { randomUUID } = require("crypto");
 const manipatacion = require("./manipulacionData");
 const juego = require("./logicaJuego");
+const { error } = require("console");
 
 const total_Rondas = 6;
 
@@ -11,7 +12,11 @@ function partidaParaJugador(partida) {
   copia.ronda = copia.rondas.map((ronda) => {
     if (!ronda.finalizada) {
       const { palabraSecreta, ...rondaSinPalabra } = ronda;
-      return { ...rondaSinPalabra, longitud: palabraSecreta.length };
+      return {
+        ...rondaSinPalabra,
+        palabraIngresada: Boolean(palabraSecreta),
+        longitud: palabraSecreta ? palabraSecreta.length : null,
+      };
     }
     return ronda;
   });
@@ -23,10 +28,10 @@ function crearRonda(numero, jugadorAdivina) {
   return {
     numero,
     jugadorAdivina,
-    palabraSecreta: juego.elegirPalabraAleatoria(),
+    palabraSecreta: null,
     intentos: [],
     finalizado: false,
-    inicioTimepo: Date.now(),
+    inicioTimepo: null,
     tiempoSegundos: null,
   };
 }
@@ -56,12 +61,40 @@ function crearPartida(req, res) {
   res.status(201).json(partidaParaJugador(partida));
 }
 
+function ingresarPalabra(req, res) {
+  const { id } = req.params;
+  const { palabra } = req.body;
+
+  const partida = manipatacion.buscarPartidaPorId(id);
+  if (!partida) {
+    return res.status(400).json({ error: "Partida no encontrada." });
+  }
+  if (partida.estado === "finalizada") {
+    return res.status(400).json({ error: "La partida ya finalizó" });
+  }
+
+  const ronda = partida.rondas[partida.rondas.length - 1];
+  if (ronda.palabraSecreta) {
+    return res
+      .status(400)
+      .json({ error: "Ya se ingresó la palabra de esta ronda." });
+  }
+
+  const validacion = juego.validarPalabra(palabra);
+  if (!validacion.valida) {
+    return res.status(400).json({ error: validacion.error });
+  }
+
+  ronda.palabraSecreta = palabra.trim().toLowerCase();
+  ronda.inicioTimepo = Date.now();
+}
+
 // Función para poder registrar el intento de un jugador en la partida
 function registrarIntento(req, res) {
-  const { idPartida } = req.params;
+  const { id } = req.params;
   const { intento } = req.body;
 
-  const partida = manipatacion.buscarPartidaPorId(idPartida);
+  const partida = manipatacion.buscarPartidaPorId(id);
   if (!partida) {
     return res.status(404).json({ error: "Partida no encontrada" });
   }
@@ -69,7 +102,12 @@ function registrarIntento(req, res) {
     return res.status(400).json({ error: "Partida finalizada" });
   }
 
-  const ronda = partida.rondas[partida.rondaActual - 1];
+  const ronda = partida.rondas[partida.rondas.length - 1];
+  if (!ronda.palabraSecreta) {
+    return res
+      .status(400)
+      .json({ error: "Todavía no se ha ingresado la palabra." });
+  }
   if (ronda.finalizada) {
     return res.status(400).json({ error: "Ronda finalizada" });
   }
@@ -111,7 +149,7 @@ function registrarIntento(req, res) {
     }
   }
 
-  manipatacion.actualizarPartida(idPartida, partida);
+  manipatacion.actualizarPartida(id, partida);
 
   res.json({
     esCorrecto: resultado.esCorrecto,
@@ -136,7 +174,7 @@ function cambiarRonda(req, res) {
 
   const rondaAnterior = partida.rondas[partida.rondaActual - 1];
 
-  if (!rondaAnterior.finalizado) {
+  if (!rondaAnterior.finalizada) {
     return res.status(400).json({ error: "La ronda actual no ha finalizado" });
   }
   if (partida.rondaActual >= total_Rondas) {
@@ -173,6 +211,7 @@ function obtenerDetalles(req, res) {
 
 module.exports = {
   crearPartida,
+  ingresarPalabra,
   registrarIntento,
   cambiarRonda,
   obtenerHistorial,

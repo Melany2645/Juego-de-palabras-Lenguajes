@@ -28,6 +28,15 @@ export async function enviarIntento(id, intento) {
   return manejarRespuestas(respuesta);
 }
 
+export async function ingresarPalabra(id, palabra) {
+  const respuesta = await fetch(`${BASE_URL}/partidas/${id}/palabra`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ palabra }),
+  });
+  return manejarRespuestas(respuesta);
+}
+
 export async function obtenerPartida(id) {
   const respuesta = await fetch(`${BASE_URL}/partidas/${id}`);
   return manejarRespuestas(respuesta);
