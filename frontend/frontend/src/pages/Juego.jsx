@@ -8,6 +8,7 @@ import {
 } from "../api";
 import FilaFichas from "../components/FilaFichas";
 
+// Manejo de las reglas del juego, las diferentes validaciones
 export default function Juego() {
   const { id } = useParams();
   const navegar = useNavigate();

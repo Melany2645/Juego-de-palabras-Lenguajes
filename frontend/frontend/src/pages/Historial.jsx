@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { obtenerHistorial } from "../api";
 
+// Pide la información de las partidas ya realizadas
 export default function Historial() {
   const [partidas, setPartidas] = useState([]);
   const [cargando, setCargando] = useState(true);

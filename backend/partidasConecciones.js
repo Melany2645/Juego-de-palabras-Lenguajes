@@ -23,6 +23,9 @@ function partidaParaJugador(partida) {
 }
 
 // Función para crear la ronda
+/*
+ * Resive dos parametros
+ */
 function crearRonda(numero, jugadorAdivina) {
   return {
     numero,

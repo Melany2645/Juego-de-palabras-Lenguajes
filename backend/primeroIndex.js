@@ -1,3 +1,14 @@
+/************************Datos administrativos****************************
+ * Nombre del proyecto: Batalla de Palabras
+ * Archivo: primeroIndex.js
+ * Autor: Melany Jirón
+ * Empresa: Instituto Tecnológico de Costa Rica
+ * ******************************Descripción*****************************
+ * Este archivo contiene la inicialización del servidor, el cual se comunica frontend.
+ * ******************************Versión*********************************
+ * 1.0 | 23/08/2026 | Melany Jirón
+ *************************************************************************/
+
 //import express from "express";
 const express = require("express");
 //import cors from "cors";
@@ -16,8 +27,7 @@ app.get("/", (req, res) => {
 app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 
-// Definimos rutas
-
+// Definimos rutas, se conectan las rutas con las funciones correspondientes
 const router = express.Router();
 
 router.post("/partidas", partidasConneciones.crearPartida);
@@ -29,6 +39,7 @@ router.post("/partidas/:id/siguiente-ronda", partidasConneciones.cambiarRonda);
 
 app.use("/api", router);
 
+// Manejo de errores
 app.use((req, res) => {
   res.status(404).json({ error: "Ruta no enontrada." });
 });
